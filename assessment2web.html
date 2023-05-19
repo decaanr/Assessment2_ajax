@@ -4,7 +4,7 @@
     <title>Rick & Morty API</title>
 </head>
 <body>
-    <form id="FormNomor2">
+    <form id="filterForm" onsubmit="return validateForm()">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name">
         
@@ -62,24 +62,20 @@
                     {"data": "location.name"}
                 ]
             });
-            
-            $('#filterForm').on('submit', function(e) {
-                e.preventDefault();
-                
-                var name = $('#name').val();
-                var gender = $('#gender').val();
-                var status = $('#status').val();
-                
-                table
-                    .column(0)
-                    .search(name)
-                    .column(4)
-                    .search(gender)
-                    .column(1)
-                    .search(status)
-                    .draw();
-            });
         });
+
+        function validateForm() {
+            var name = document.getElementById("name").value;
+            var gender = document.getElementById("gender").value;
+            var status = document.getElementById("status").value;
+
+            if (name.trim() === '' && gender === '' && status === '') {
+                alert('Please fill in at least one field.');
+                return false;
+            }
+
+            return true;
+        }
     </script>
 </body>
 </html>
